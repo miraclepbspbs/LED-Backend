@@ -12,7 +12,6 @@ const PORT = process.env.PORT || 3000;
 // ---------- 中间件 ----------
 app.use(cors());
 app.use(express.json());
-app.use(bodyParser.json());
 
 // ---------- MongoDB 连接 ----------
 mongoose.connect(process.env.MONGODB_URI)
