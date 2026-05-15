@@ -1,5 +1,5 @@
 const express = require('express');
-app.use(express.json());
+
 const cors = require('cors');
 const mongoose = require('mongoose');
 const http = require('http');
@@ -11,6 +11,7 @@ const PORT = process.env.PORT || 3000;
 
 // ---------- 中间件 ----------
 app.use(cors());
+app.use(express.json());
 app.use(bodyParser.json());
 
 // ---------- MongoDB 连接 ----------
