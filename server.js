@@ -131,15 +131,15 @@ app.get('/api/pid', async (req, res) => {
 
 // 更新 PID
 app.post('/api/pid', async (req, res) => {
-  const { p, i, d } = req.body;
-  if (p === undefined || i === undefined || d === undefined) {
-    return res.status(400).json({ success: false, message: 'Missing p, i, d' });
+  const { kp, ki, kd } = req.body;
+  if (kp === undefined || ki === undefined || kd === undefined) {
+    return res.status(400).json({ success: false, message: 'Missing kp, ki, kd' });
   }
 
   try {
     const updated = await PidParams.findOneAndUpdate(
       {},
-      { $set: { p, i, d, updatedAt: new Date() } },
+      { $set: { kp, ki, kd, updatedAt: new Date() } },
       { new: true, upsert: true }
     );
     // 推送新 PID 给所有在线 ESP-01S
