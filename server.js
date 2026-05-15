@@ -132,6 +132,7 @@ app.get('/api/pid', async (req, res) => {
 // 更新 PID
 app.post('/api/pid', async (req, res) => {
   const { kp, ki, kd } = req.body;
+  console.log(req.body);
   if (kp === undefined || ki === undefined || kd === undefined) {
     return res.status(400).json({ success: false, message: 'Missing kp, ki, kd' });
   }
