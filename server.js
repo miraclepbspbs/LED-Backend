@@ -132,7 +132,10 @@ app.get('/api/pid', async (req, res) => {
 // 更新 PID
 app.post('/api/pid', async (req, res) => {
   const { kp, ki, kd } = req.body;
-  console.log(req.body);
+  console.log('=== PID POST received ===');
+  console.log('Content-Type:', req.headers['content-type']);
+  console.log('Body:', JSON.stringify(req.body));
+  console.log('kp:', req.body.kp, 'ki:', req.body.ki, 'kd:', req.body.kd);
   if (kp === undefined || ki === undefined || kd === undefined) {
     return res.status(400).json({ success: false, message: 'Missing kp, ki, kd' });
   }
@@ -144,7 +147,7 @@ app.post('/api/pid', async (req, res) => {
       { new: true, upsert: true }
     );
     // 推送新 PID 给所有在线 ESP-01S
-    broadcastCommand(`PID:${updated.p},${updated.i},${updated.d}`);
+    broadcastCommand(`PID:${updated.kp},${updated.ki},${updated.kd}`);
     res.json({ success: true, data: updated });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
